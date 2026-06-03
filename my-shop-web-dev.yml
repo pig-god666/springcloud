@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: my-shop-web
+  boot:
+    admin:
+      client:
+        url: http://localhost:7779
+        instance:
+          service-url: http://localhost:${server.port}
+          management-url: http://localhost:${server.port}/actuator
+          health-url: http://localhost:${server.port}/actuator/health
+  rabbitmq:
+    host: 81.71.147.52
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8088/eureka/
+  instance:
+    prefer-ip-address: true
+
+server:
+  port: 8081
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    hystrix:
+      stream:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
